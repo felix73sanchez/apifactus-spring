@@ -1,0 +1,35 @@
+server:
+  port: ${PORT:1221}
+
+spring:
+  application:
+    name: apifactus
+    version: 1.0.0
+  datasource:
+    url:
+    username:
+    password:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+
+  security:
+    user:
+      name: fsx
+      password: koko73
+      roles: USER
+
+
+# Configuraciones de la Api Factus
+api:
+  url:
+  user:
+  pass:
+  id:
+  secret:
+
