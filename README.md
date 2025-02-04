@@ -37,7 +37,7 @@ La API estará disponible en `http://localhost:1221`
 
 📌 **Autenticación**
 ```http
-GET v1/auth/token
+GET /v1/auth/token
 ```
 
 📌 **Facturas**
