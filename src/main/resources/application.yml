@@ -1,14 +1,13 @@
 server:
   port: ${PORT:1221}
-
 spring:
   application:
     name: apifactus
-    version: 1.0.0
+    version: 1.0.1
   datasource:
-    url:
-    username:
-    password:
+    url: ${DB_URL_RENDER}
+    username: ${DB_USER_RENDER}
+    password: ${DB_PASS_RENDER}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -16,20 +15,14 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-
-
   security:
     user:
-      name: fsx
-      password: koko73
+      name: ${FSX_USER_API}
+      password: ${FSX_PASS_API}
       roles: USER
-
-
-# Configuraciones de la Api Factus
 api:
-  url:
-  user:
-  pass:
-  id:
-  secret:
-
+  url: ${URL_FACTUS}
+  user: ${USER_FACTUS}
+  pass: ${PASS_FACTUS}
+  id: ${ID_FACTUS}
+  secret: ${SECRET_FACTUS}

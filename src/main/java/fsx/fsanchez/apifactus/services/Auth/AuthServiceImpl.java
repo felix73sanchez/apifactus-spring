@@ -16,7 +16,7 @@ public class AuthServiceImpl implements AuthService {
     private Instant tokenExpiration;
 
     @Value("${api.url}")
-    private String apiUrl;
+    private String apiurl;
 
     @Value("${api.id}")
     private String clientId;
@@ -56,7 +56,7 @@ public class AuthServiceImpl implements AuthService {
                 "&password=" + password;
 
         HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
-        ResponseEntity<AuthResponse> response = restTemplate.exchange(apiUrl + "/oauth/token", HttpMethod.POST, entity, AuthResponse.class);
+        ResponseEntity<AuthResponse> response = restTemplate.exchange(apiurl + "/oauth/token", HttpMethod.POST, entity, AuthResponse.class);
 
         if (response.getStatusCode() == HttpStatus.OK) {
             response.getBody();
@@ -74,7 +74,7 @@ public class AuthServiceImpl implements AuthService {
                 "&refresh_token=" + refreshToken;
 
         HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
-        ResponseEntity<AuthResponse> response = restTemplate.exchange(apiUrl + "/oauth/token", HttpMethod.POST, entity, AuthResponse.class);
+        ResponseEntity<AuthResponse> response = restTemplate.exchange(apiurl + "/oauth/token", HttpMethod.POST, entity, AuthResponse.class);
 
         if (response.getStatusCode() == HttpStatus.OK) {
             response.getBody();
