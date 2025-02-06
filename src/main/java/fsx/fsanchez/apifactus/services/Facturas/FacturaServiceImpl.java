@@ -3,6 +3,8 @@ package fsx.fsanchez.apifactus.services.Facturas;
 import fsx.fsanchez.apifactus.percistence.models.Facturas.Factura;
 import fsx.fsanchez.apifactus.percistence.models.Facturas.FacturaResponse;
 import fsx.fsanchez.apifactus.percistence.repositories.Facturas.FacturasRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -19,10 +21,10 @@ public class FacturaServiceImpl implements FacturaService{
         this.facturasRepository = facturasRepository;
     }
 
-
+    @CacheEvict(value = {"facturas", "factura"}, allEntries = true) // Invalida cache al guardar
     public Factura guardaFactura(String status, String customerName, String customerIdentification,
-                               String customerEmail, Long billId, String billNumber,
-                               String referenceCode, Date createdAt, String qrImage) {
+                                 String customerEmail, Long billId, String billNumber,
+                                 String referenceCode, Date createdAt, String qrImage) {
         Factura factura = new Factura();
         factura.setStatus(status);
         factura.setCustomerName(customerName);
@@ -37,6 +39,7 @@ public class FacturaServiceImpl implements FacturaService{
         return facturasRepository.save(factura);
     }
 
+    @Cacheable(value = "factura", key = "#billId")
     public FacturaResponse buscaPorId(Long billId) {
         Optional<Factura> facturaOptional = facturasRepository.findByBillId(billId);
 
@@ -48,13 +51,13 @@ public class FacturaServiceImpl implements FacturaService{
         }
     }
 
+    @Cacheable(value = "facturas")
     public List<FacturaResponse> buscaTodasFacturas() {
         List<Factura> facturas = facturasRepository.findAll();
         return facturas.stream()
                 .map(this::dtoFacturas)
                 .collect(Collectors.toList());
     }
-
 
     private FacturaResponse dtoFacturas(Factura factura) {
         FacturaResponse response = new FacturaResponse();

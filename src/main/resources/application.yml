@@ -10,6 +10,7 @@ spring:
     password: ${DB_PASS_RENDER}
     driver-class-name: org.postgresql.Driver
   jpa:
+    open-in-view: false
     hibernate:
       ddl-auto: update
   security:
@@ -17,6 +18,8 @@ spring:
       name: ${FSX_USER_API}
       password: ${FSX_PASS_API}
       roles: USER
+  cache:
+    type: simple
 api:
   url: ${URL_FACTUS}
   user: ${USER_FACTUS}
